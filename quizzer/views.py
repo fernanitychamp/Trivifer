@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404
 from django.template import loader
 
@@ -15,10 +15,5 @@ def index(request):
 
 
 def detail(request, slug):
-    try:
-        quiz = Quiz.objects.filter(slug=slug)
-        if ( len(quiz) == 0 ):
-            raise Quiz.DoesNotExist
-    except Quiz.DoesNotExist:
-        raise Http404("The selected quiz could not be found")
-    return render(request, 'quizzer/detail.html', {'quiz': quiz[0]})
+    quiz = get_object_or_404(Quiz, slug=slug)
+    return render(request, 'quizzer/detail.html', {'quiz': quiz})

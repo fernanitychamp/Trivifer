@@ -1,7 +1,7 @@
 {% if latest_quizes_list %}
     <ul>
         {% for quiz in latest_quizes_list %}
-            <li><a href="/quiz/{{ quiz.slug }}">{{ quiz.title }}</a></li>
+            <li><a href="{% url 'detail' quiz.slug %}">{{ quiz.title }}</a></li>
         {% endfor %}
     </ul>
 {% else %}
