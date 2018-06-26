@@ -19,3 +19,36 @@ class Quiz(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Opcion(models.Model):
+    text        = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name        = 'Opcion'
+        verbose_name_plural = 'Opciones'
+
+    def __str__(self):
+        return self.text
+
+
+class Pregunta(models.Model):
+    title       = models.CharField(max_length=150)
+    quiz        = models.ForeignKey('Quiz', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name        = 'Pregunta'
+        verbose_name_plural = 'Preguntas'
+
+    def __str__(self):
+        return self.title
+
+
+class PreguntaOpcion(models.Model):
+    pregunta    = models.ForeignKey(Pregunta, on_delete=models.CASCADE)
+    opcion      = models.ForeignKey(Opcion, on_delete=models.CASCADE)
+    correct     = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name    = 'PreguntaOpcion'
+        verbose_name_plural = 'PreguntasOpciones'
